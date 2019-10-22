@@ -5,6 +5,7 @@ import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.teinelund.console.application.mps.argumentparser.ArgumentsVO;
 import org.teinelund.console.application.mps.argumentparser.ConsoleArgumentParser;
+import org.teinelund.console.application.mps.controller.Controller;
 import org.teinelund.console.application.mps.validation.ArgumentValidator;
 
 import java.io.FileReader;
@@ -39,14 +40,7 @@ public class Application
     }
 
     public void executrCommands() throws IOException, XmlPullParserException {
-        if (this.arguments.isHelp()) {
-            this.argumentParser.printHelp();
-        }
-        if (this.arguments.isVersion()) {
-            MavenXpp3Reader reader = new MavenXpp3Reader();
-            Model model = reader.read(new FileReader("pom.xml"));
-            System.out.println("Maven Project Setup. (C) 2019 Henrik Teinelund.");
-            System.out.println("Version: " + model.getVersion());
-        }
+        Controller controller = new Controller(this.argumentParser, this.arguments);
+        controller.selectStrategy();
     }
 }
