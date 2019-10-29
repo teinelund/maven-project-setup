@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CreateDirectroyOfApplicationCommandTest {
 
@@ -21,14 +21,33 @@ class CreateDirectroyOfApplicationCommandTest {
         // Initialize
         createFilesAndFolders();
         CreateDirectroyOfApplicationCommand sut = new CreateDirectroyOfApplicationCommandMock(null, this.homeDir);
+        assertThat(doesTheDirectoryMavenProjectSetupExist()).isTrue();
         // Test
         sut.action();
         // Verify
+        assertThat(doesTheDirectoryMavenProjectSetupExist()).isTrue();
+    }
+
+    @Test
+    void actionWhereDirectoryOfApplicationDoesNotExist() throws IOException {
+        // Initialize
+        CreateDirectroyOfApplicationCommand sut = new CreateDirectroyOfApplicationCommandMock(null, this.homeDir);
+        assertThat(doesTheDirectoryMavenProjectSetupExist()).isFalse();
+        // Test
+        sut.action();
+        // Verify
+        assertThat(doesTheDirectoryMavenProjectSetupExist()).isTrue();
     }
 
     void createFilesAndFolders() throws IOException {
         Path mavenProjectSetupDirectory = Paths.get(this.homeDir.getAbsolutePath(), ".maven-project-setup");
         Files.createDirectory(mavenProjectSetupDirectory);
+    }
+
+
+    boolean doesTheDirectoryMavenProjectSetupExist() {
+        Path mavenProjectSetupDirectory = Paths.get(this.homeDir.getAbsolutePath(), ".maven-project-setup");
+        return Files.exists(mavenProjectSetupDirectory);
     }
 }
 

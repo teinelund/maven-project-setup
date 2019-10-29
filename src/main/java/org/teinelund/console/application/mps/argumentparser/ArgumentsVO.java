@@ -31,11 +31,37 @@ public class ArgumentsVO {
     @Parameter(names = { "-d", "--description" }, description = "Set Application description.")
     private boolean description;
 
+    public ArgumentsVO() {}
+
+    ArgumentsVO( Builder builder ) {
+        this.isHelp = builder.isHelp;
+        this.isVersion = builder.isVersion;
+    }
+
     public boolean isHelp() {
         return this.isHelp;
     }
 
     public boolean isVersion() {
         return this.isVersion;
+    }
+
+    public static class Builder {
+        private boolean isHelp;
+        private boolean isVersion;
+
+        public Builder setIsHelp( boolean isHelp ) {
+            this.isHelp = isHelp;
+            return this;
+        }
+
+        public Builder setIsVersion( boolean isVersion ) {
+            this.isVersion = isVersion;
+            return this;
+        }
+
+        public ArgumentsVO build() {
+            return new ArgumentsVO( this );
+        }
     }
 }
