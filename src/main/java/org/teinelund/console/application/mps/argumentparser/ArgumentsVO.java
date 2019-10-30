@@ -4,32 +4,32 @@ import com.beust.jcommander.Parameter;
 
 public class ArgumentsVO {
 
-    @Parameter(names = { "-h", "--help" }, description = "Display this help page.")
+    @Parameter(names = { "-h", "--help" }, description = "Display this help page.", help = true, order = 7)
     private boolean isHelp;
 
-    @Parameter(names = { "-v", "--version" }, description = "Show version.")
+    @Parameter(names = { "-v", "--version" }, description = "Show version.", order = 8)
     private boolean isVersion;
 
-    @Parameter(names = { "-c", "--command-line-application" }, description = "Create a Command Line Application. This is the default.")
+    @Parameter(names = { "-c", "--command-line-application" }, description = "Create a Command Line Application. This is the default.", order = 0)
     private boolean isCommandLineApplication;
 
-    @Parameter(names = { "-m", "--maven-module" }, description = "Create a Maven module.")
+    @Parameter(names = { "-m", "--maven-module" }, description = "Create a Maven module.", order = 1)
     private boolean isMavenModule;
 
-    @Parameter(names = { "-g", "--groupid" }, description = "Set groupId.")
+    @Parameter(names = { "-g", "--groupid" }, description = "Set groupId.", order = 2)
     private String groupId;
 
-    @Parameter(names = { "-a", "--artifactid" }, description = "Set artifactId.")
+    @Parameter(names = { "-a", "--artifactid" }, description = "Set artifactId.", order = 3)
     private String artifactId;
 
-    @Parameter(names = { "-p", "--package" }, description = "Set package.")
-    private String packageName = "";
+    @Parameter(names = { "-p", "--package" }, description = "Set package.", order = 4)
+    private String packageName;
 
-    @Parameter(names = { "-n", "--applicationName" }, description = "Set Application Name.")
-    private String applicationName = "";
+    @Parameter(names = { "-n", "--applicationName" }, description = "Set Application Name.", order = 5)
+    private String applicationName;
 
-    @Parameter(names = { "-d", "--description" }, description = "Set Application description.")
-    private String description = "";
+    @Parameter(names = { "-d", "--description" }, description = "Set Application description.", order = 6)
+    private String description;
 
     public ArgumentsVO() {}
 
