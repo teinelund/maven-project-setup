@@ -23,19 +23,26 @@ public class ArgumentsVO {
     private String artifactId;
 
     @Parameter(names = { "-p", "--package" }, description = "Set package.")
-    private boolean packageName;
+    private String packageName = "";
 
     @Parameter(names = { "-n", "--applicationName" }, description = "Set Application Name.")
-    private boolean applicationName;
+    private String applicationName = "";
 
     @Parameter(names = { "-d", "--description" }, description = "Set Application description.")
-    private boolean description;
+    private String description = "";
 
     public ArgumentsVO() {}
 
     ArgumentsVO( Builder builder ) {
         this.isHelp = builder.isHelp;
         this.isVersion = builder.isVersion;
+        this.isCommandLineApplication = builder.isCommandLineApplication;
+        this.isMavenModule = builder.isMavenModule;
+        this.groupId = builder.groupId;
+        this.artifactId = builder.artifactId;
+        this.packageName = builder.packageName;
+        this.applicationName = builder.applicationName;
+        this.description = builder.description;
     }
 
     public boolean isHelp() {
@@ -46,9 +53,83 @@ public class ArgumentsVO {
         return this.isVersion;
     }
 
+    public boolean isCommandLineApplication() {
+        return this.isCommandLineApplication;
+    }
+
+    public void setCreateCommandLineApplication() {
+        this.isCommandLineApplication = true;
+    }
+
+    public boolean isMavenModule() {
+        return this.isMavenModule;
+    }
+
+    public String getGroupId() {
+        return this.groupId;
+    }
+
+    public String getArtifactId() {
+        return this.artifactId;
+    }
+
+    public String isPackageName() {
+        return this.packageName;
+    }
+
+    public String isApplicationName() {
+        return this.applicationName;
+    }
+
+    public String isDescription() {
+        return this.description;
+    }
+
     public static class Builder {
         private boolean isHelp;
         private boolean isVersion;
+        private boolean isCommandLineApplication;
+        private boolean isMavenModule;
+        private String groupId;
+        private String artifactId;
+        private String packageName;
+        private String applicationName;
+        private String description;
+
+        public Builder setCommandLineApplication(boolean isCommandLineApplication) {
+            this.isCommandLineApplication = isCommandLineApplication;
+            return this;
+        }
+
+        public Builder setMavenModule(boolean isMavenModule) {
+            this.isMavenModule = isMavenModule;
+            return this;
+        }
+
+        public Builder setGroupId(String groupId) {
+            this.groupId = groupId;
+            return this;
+        }
+
+        public Builder setArtifactId(String artifactId) {
+            this.artifactId = artifactId;
+            return this;
+        }
+
+        public Builder setPackageName(String packageName) {
+            this.packageName = packageName;
+            return this;
+        }
+
+        public Builder setApplicationName(String applicationName) {
+            this.applicationName = applicationName;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
 
         public Builder setIsHelp( boolean isHelp ) {
             this.isHelp = isHelp;

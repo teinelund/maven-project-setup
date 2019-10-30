@@ -1,23 +1,25 @@
 package org.teinelund.console.application.mps;
 
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.teinelund.console.application.mps.argumentparser.ArgumentsVO;
 import org.teinelund.console.application.mps.argumentparser.ConsoleArgumentParser;
 import org.teinelund.console.application.mps.controller.Controller;
+import org.teinelund.console.application.mps.validation.ArgumentValidationException;
 import org.teinelund.console.application.mps.validation.ArgumentValidator;
 
-import java.io.FileReader;
 import java.io.IOException;
 
 public class Application
 {
-    public static void main( String[] args ) throws IOException, XmlPullParserException {
+    public static void main( String[] args ) throws IOException {
         Application application = new Application(args);
         application.parseCommandLineArguments();
-        application.validateArguments();
-        application.executrCommands();
+        try {
+            application.validateArguments();
+            application.executrCommands();
+        }
+        catch (ArgumentValidationException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     private String[] args;
@@ -39,7 +41,7 @@ public class Application
         validator.validateArguments(this.arguments);
     }
 
-    public void executrCommands() throws IOException, XmlPullParserException {
+    public void executrCommands() throws IOException {
         Controller controller = new Controller(this.argumentParser, this.arguments);
         controller.selectStrategy();
     }
