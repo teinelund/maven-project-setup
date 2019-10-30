@@ -11,12 +11,12 @@ public abstract class AbstractCommand {
         this.nextCommand = nextCommand;
     }
 
-    protected abstract void action() throws IOException;
+    protected abstract void action(Context context) throws IOException;
 
-    public void executeCommand() throws IOException {
-        action();
+    public void executeCommand(Context context) throws IOException {
+        action(context);
         if (Objects.nonNull(this.nextCommand)) {
-            this.nextCommand.executeCommand();
+            this.nextCommand.executeCommand(context);
         }
     }
 }

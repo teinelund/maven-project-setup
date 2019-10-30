@@ -7,6 +7,8 @@ import org.teinelund.console.application.mps.strategy.HelpStrategy;
 import org.teinelund.console.application.mps.strategy.Strategy;
 import org.teinelund.console.application.mps.strategy.VersionStrategy;
 
+import java.io.IOException;
+
 public class Controller {
 
     private ConsoleArgumentParser argumentParser;
@@ -17,7 +19,7 @@ public class Controller {
         this.arguments = arguments;
     }
 
-    public void selectStrategy() {
+    public void selectStrategy() throws IOException {
         Strategy strategy = null;
         if (this.arguments.isHelp()) {
             strategy = new HelpStrategy(this.argumentParser);
