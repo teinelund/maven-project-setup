@@ -6,18 +6,20 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Properties;
 
 public class VersionStrategy implements Strategy {
 
     @Override
     public void execute() {
         try {
-            MavenXpp3Reader reader = new MavenXpp3Reader();
-            Model model = reader.read(new FileReader("pom.xml"));
+            final Properties properties = new Properties();
+            properties.load(getClass().getClassLoader().getResourceAsStream("Application.properties"));
             System.out.println("Maven Project Setup. (C) 2019 Henrik Teinelund.");
-            System.out.println("Version: " + model.getVersion());
-        } catch (IOException | XmlPullParserException e) {
+            System.out.println("Version: " + properties.getProperty("application.version"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }
