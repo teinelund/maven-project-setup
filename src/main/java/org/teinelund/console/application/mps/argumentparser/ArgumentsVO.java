@@ -73,15 +73,15 @@ public class ArgumentsVO {
         return this.artifactId;
     }
 
-    public String isPackageName() {
+    public String getPackageName() {
         return this.packageName;
     }
 
-    public String isApplicationName() {
+    public String getApplicationName() {
         return this.applicationName;
     }
 
-    public String isDescription() {
+    public String getDescription() {
         return this.description;
     }
 

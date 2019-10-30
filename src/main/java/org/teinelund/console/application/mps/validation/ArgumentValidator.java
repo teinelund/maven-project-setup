@@ -21,5 +21,11 @@ public class ArgumentValidator {
         if (StringUtils.isBlank(arguments.getArtifactId())) {
             throw new ArgumentValidationException("Invalid argument. Argument '--artifactid' is mandatory.");
         }
+        if (StringUtils.isBlank(arguments.getApplicationName())) {
+            System.out.println("Warning! Argument '--applicationName' is not given. Application name is set to be the value of artifact id: '" + arguments.getArtifactId() + "'.");
+        }
+        if (StringUtils.isBlank(arguments.getPackageName())) {
+            System.out.println("Warning! Argument '--package' is not given. Package will be set to the value of groupid: '" + arguments.getGroupId() + "'.");
+        }
     }
 }
