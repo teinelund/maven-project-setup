@@ -8,9 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 
-public class CreateDirectroyOfApplicationCommand extends AbstractCommand {
+public class CreateMavenProjectSetupDirectoryCommand extends AbstractCommand {
 
-    public CreateDirectroyOfApplicationCommand(AbstractCommand nextCommand) {
+    public CreateMavenProjectSetupDirectoryCommand(AbstractCommand nextCommand) {
         super(nextCommand);
     }
 

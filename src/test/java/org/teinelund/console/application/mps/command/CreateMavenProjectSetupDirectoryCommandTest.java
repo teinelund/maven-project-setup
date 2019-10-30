@@ -5,7 +5,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,7 +14,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CreateDirectroyOfApplicationCommandTest {
+class CreateMavenProjectSetupDirectoryCommandTest {
 
     private Context context = null;
 
@@ -26,7 +25,7 @@ class CreateDirectroyOfApplicationCommandTest {
     void actionWhereDirectoryOfApplicationExist() throws IOException {
         // Initialize
         createFilesAndFolders();
-        CreateDirectroyOfApplicationCommand sut = new CreateDirectroyOfApplicationCommandMock(null, this.homeDir);
+        CreateMavenProjectSetupDirectoryCommand sut = new CreateMavenProjectSetupDirectoryCommandMock(null, this.homeDir);
         assertThat(doesTheDirectoryMavenProjectSetupExist()).isTrue();
         assertThat(doesFileExistInDirectoryMavenProjectSetup("pom-template.xml")).isTrue();
         // Test
@@ -40,7 +39,7 @@ class CreateDirectroyOfApplicationCommandTest {
     @Test
     void actionWhereDirectoryOfApplicationDoesNotExist() throws IOException {
         // Initialize
-        CreateDirectroyOfApplicationCommand sut = new CreateDirectroyOfApplicationCommandMock(null, this.homeDir);
+        CreateMavenProjectSetupDirectoryCommand sut = new CreateMavenProjectSetupDirectoryCommandMock(null, this.homeDir);
         assertThat(doesTheDirectoryMavenProjectSetupExist()).isFalse();
         assertThat(doesFileExistInDirectoryMavenProjectSetup("pom-template.xml")).isFalse();
         // Test
@@ -100,11 +99,11 @@ class CreateDirectroyOfApplicationCommandTest {
     }
 }
 
-class CreateDirectroyOfApplicationCommandMock extends CreateDirectroyOfApplicationCommand {
+class CreateMavenProjectSetupDirectoryCommandMock extends CreateMavenProjectSetupDirectoryCommand {
 
     private File homeDir;
 
-    public CreateDirectroyOfApplicationCommandMock(AbstractCommand nextCommand, File homeDir) {
+    public CreateMavenProjectSetupDirectoryCommandMock(AbstractCommand nextCommand, File homeDir) {
         super(nextCommand);
         this.homeDir = homeDir;
     }

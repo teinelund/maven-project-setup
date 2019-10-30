@@ -25,10 +25,10 @@ public class ArgumentsVO {
     @Parameter(names = { "-p", "--package" }, description = "Set package.", order = 4)
     private String packageName;
 
-    @Parameter(names = { "-n", "--applicationName" }, description = "Set Application Name.", order = 5)
+    @Parameter(names = { "-n", "--applicationName" }, description = "Set application name.", order = 5)
     private String applicationName;
 
-    @Parameter(names = { "-d", "--description" }, description = "Set Application description.", order = 6)
+    @Parameter(names = { "-d", "--description" }, description = "Set application description.", order = 6)
     private String description;
 
     public ArgumentsVO() {}

@@ -3,7 +3,8 @@ package org.teinelund.console.application.mps.strategy;
 import org.teinelund.console.application.mps.argumentparser.ArgumentsVO;
 import org.teinelund.console.application.mps.command.AbstractCommand;
 import org.teinelund.console.application.mps.command.Context;
-import org.teinelund.console.application.mps.command.CreateDirectroyOfApplicationCommand;
+import org.teinelund.console.application.mps.command.CreateMavenProjectSetupDirectoryCommand;
+import org.teinelund.console.application.mps.command.CreateApplicationDirectoryCommand;
 
 import java.io.IOException;
 
@@ -21,10 +22,11 @@ public class CreateMavenProjectStrategy implements Strategy {
         wireCommands();
         Context context = new Context();
         context.setArguments(this.arguments);
-        command.executeCommand(context);
+        this.command.executeCommand(context);
     }
 
     void wireCommands() {
-        command = new CreateDirectroyOfApplicationCommand(null);
+        CreateApplicationDirectoryCommand c = new CreateApplicationDirectoryCommand(null);
+        this.command = new CreateMavenProjectSetupDirectoryCommand(c);
     }
 }
