@@ -1,5 +1,6 @@
 package org.teinelund.console.application.mps.controller;
 
+import org.dom4j.DocumentException;
 import org.teinelund.console.application.mps.argumentparser.ArgumentsVO;
 import org.teinelund.console.application.mps.argumentparser.ConsoleArgumentParser;
 import org.teinelund.console.application.mps.strategy.CreateMavenProjectStrategy;
@@ -19,7 +20,7 @@ public class Controller {
         this.arguments = arguments;
     }
 
-    public void selectStrategy() throws IOException {
+    public void selectStrategy() throws IOException, DocumentException {
         Strategy strategy = null;
         if (this.arguments.isHelp()) {
             strategy = new HelpStrategy(this.argumentParser);

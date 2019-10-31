@@ -1,5 +1,6 @@
 package org.teinelund.console.application.mps;
 
+import org.dom4j.DocumentException;
 import org.teinelund.console.application.mps.argumentparser.ArgumentsVO;
 import org.teinelund.console.application.mps.argumentparser.ConsoleArgumentParser;
 import org.teinelund.console.application.mps.controller.Controller;
@@ -17,7 +18,7 @@ public class Application
             application.validateArguments();
             application.executrCommands();
         }
-        catch (ArgumentValidationException e) {
+        catch (ArgumentValidationException | DocumentException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
@@ -41,7 +42,7 @@ public class Application
         validator.validateArguments(this.arguments);
     }
 
-    public void executrCommands() throws IOException {
+    public void executrCommands() throws IOException, DocumentException {
         Controller controller = new Controller(this.argumentParser, this.arguments);
         controller.selectStrategy();
     }
