@@ -20,12 +20,14 @@ public class CreateMavenProjectSetupDirectoryCommand extends AbstractCommand {
         if (Files.notExists(mavenProjectSetupDirectory)) {
             Files.createDirectory(mavenProjectSetupDirectory);
         }
+        context.setMavenProjectSetupDirectoryPath(mavenProjectSetupDirectory);
         Path mavenPomXmlTemplateFile = Paths.get(mavenProjectSetupDirectory.toAbsolutePath().toString(), "pom-template.xml");
         if (Files.notExists(mavenPomXmlTemplateFile)) {
             ClassLoader classLoader = getClass().getClassLoader();
             InputStream inputStream = classLoader.getResourceAsStream("pom-template.xml");
             Files.copy(inputStream, mavenPomXmlTemplateFile);
         }
+        context.setMavenPomXmlTemplateFile(mavenPomXmlTemplateFile);
     }
 
     String getHomeDirectroy() {

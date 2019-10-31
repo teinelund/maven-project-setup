@@ -1,5 +1,6 @@
 package org.teinelund.console.application.mps.command;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -20,6 +21,11 @@ class CreateMavenProjectSetupDirectoryCommandTest {
 
     @TempDir
     File homeDir;
+
+    @BeforeEach
+    void initTest() {
+        this.context = new Context();
+    }
 
     @Test
     void actionWhereDirectoryOfApplicationExist() throws IOException {
