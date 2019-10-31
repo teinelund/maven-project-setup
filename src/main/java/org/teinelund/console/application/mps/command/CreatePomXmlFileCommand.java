@@ -3,6 +3,7 @@ package org.teinelund.console.application.mps.command;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
@@ -13,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class CreatePomXmlFileCommand extends AbstractCommand {
     public CreatePomXmlFileCommand(AbstractCommand nextCommand) {
@@ -34,22 +36,23 @@ public class CreatePomXmlFileCommand extends AbstractCommand {
     }
 
     void updatePomXmlDocument(Document pomXmlDocument, Context context) {
-        Node groupId = pomXmlDocument.selectSingleNode("//project/groupId");
+        Element root = pomXmlDocument.getRootElement();
+        Element groupId = root.element("groupId");
         groupId.setText(context.getArguments().getGroupId());
-        Node artifactId = pomXmlDocument.selectSingleNode("//project/artifactId");
+        Element artifactId = root.element("artifactId");
         artifactId.setText(context.getArguments().getArtifactId());
-        Node version = pomXmlDocument.selectSingleNode("//project/version");
+        Element version = root.element("version");
         version.setText("1.0-SNAPSHOT");
-        Node name = pomXmlDocument.selectSingleNode("//project/name");
+        Node name = root.element("name");
         if (StringUtils.isBlank(context.getArguments().getApplicationName())) {
-            name.setText("");
+            root.remove(name);
         }
         else {
             name.setText(context.getArguments().getApplicationName());
         }
-        Node description = pomXmlDocument.selectSingleNode("//project/description");
+        Node description = root.element("description");
         if (StringUtils.isBlank(context.getArguments().getDescription())) {
-            description.setText("");
+            root.remove(description);
         }
         else {
             description.setText(context.getArguments().getDescription());
