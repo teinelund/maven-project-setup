@@ -1,5 +1,7 @@
 package org.teinelund.console.application.mps.command;
 
+import org.apache.commons.lang3.SystemUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +33,6 @@ public class CreateMavenProjectSetupDirectoryCommand extends AbstractCommand {
     }
 
     String getHomeDirectroy() {
-        return System.getProperty("user.home");
+        return SystemUtils.USER_HOME;
     }
 }

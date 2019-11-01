@@ -20,8 +20,14 @@ public class CreateApplicationDirectoryCommand extends AbstractCommand {
         if (StringUtils.isBlank(context.getArguments().getApplicationName())) {
             applicationName = context.getArguments().getArtifactId();
         }
-        Path applicationDirectory = Paths.get(SystemUtils.USER_DIR, applicationName);
-        Files.createDirectory(applicationDirectory);
-        context.setApplicationDirectory(applicationDirectory);
+        Path applicationDirectory = Paths.get(getCurrentDirectory(), applicationName);
+        if (! Files.exists(applicationDirectory)) {
+            Files.createDirectory(applicationDirectory);
+            context.setApplicationDirectory(applicationDirectory);
+        }
+    }
+
+    String getCurrentDirectory() {
+        return SystemUtils.USER_DIR;
     }
 }
