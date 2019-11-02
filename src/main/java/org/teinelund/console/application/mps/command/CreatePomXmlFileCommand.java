@@ -45,7 +45,7 @@ public class CreatePomXmlFileCommand extends AbstractCommand {
         version.setText("1.0-SNAPSHOT");
         Node name = root.element("name");
         if (StringUtils.isBlank(context.getArguments().getApplicationName())) {
-            root.remove(name);
+            name.setText(context.getArguments().getArtifactId());
         }
         else {
             name.setText(context.getArguments().getApplicationName());

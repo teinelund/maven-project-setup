@@ -1,21 +1,15 @@
 package org.teinelund.console.application.mps.command;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.Node;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 import org.teinelund.console.application.mps.argumentparser.ArgumentsVO;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CreatePomXmlFileCommandTest {
 
@@ -23,18 +17,56 @@ class CreatePomXmlFileCommandTest {
     private static String GROUP_ID = "GROUP_ID";
     private static String ARTIFACT_ID = "ARTIFACT_ID";
     private static String DESCRIPTION = "DESCRIPTION";
+    private static String VERSION = "1.0-SNAPSHOT";
 
     @Test
-    void updatePomXmlDocument() throws IOException, DocumentException {
+    void updatePomXmlDocumentWhereNameAndDescriptionIsSpecified() throws IOException, DocumentException {
         // initialize
         CreatePomXmlFileCommand sut = new CreatePomXmlFileCommand(null);
         Context context = new Context();
-        ArgumentsVO arguments = new ArgumentsVO.Builder().setApplicationName(NAME).setGroupId(GROUP_ID).
-                setArtifactId(ARTIFACT_ID).setDescription(DESCRIPTION).build();
+        ArgumentsVO arguments = new ArgumentsVO.Builder().setGroupId(GROUP_ID).
+                setArtifactId(ARTIFACT_ID).setApplicationName(NAME).setDescription(DESCRIPTION).build();
         context.setArguments(arguments);
+        Document document = createPomXmlDocument();
         // test
-        sut.updatePomXmlDocument(createPomXmlDocument(), context);
+        sut.updatePomXmlDocument(document, context);
         // verify
+        Element root = document.getRootElement();
+        Element groupId = root.element("groupId");
+        assertThat(groupId.getText()).isEqualTo(GROUP_ID);
+        Element artifactId = root.element("artifactId");
+        assertThat(artifactId.getText()).isEqualTo(ARTIFACT_ID);
+        Element version = root.element("version");
+        assertThat(version.getText()).isEqualTo(VERSION);
+        Node name = root.element("name");
+        assertThat(name.getText()).isEqualTo(NAME);
+        Node description = root.element("description");
+        assertThat(description.getText()).isEqualTo(DESCRIPTION);
+    }
+
+    @Test
+    void updatePomXmlDocumentWhereNameAndDescriptionIsNotSpecified() throws IOException, DocumentException {
+        // initialize
+        CreatePomXmlFileCommand sut = new CreatePomXmlFileCommand(null);
+        Context context = new Context();
+        ArgumentsVO arguments = new ArgumentsVO.Builder().setGroupId(GROUP_ID).
+                setArtifactId(ARTIFACT_ID).build();
+        context.setArguments(arguments);
+        Document document = createPomXmlDocument();
+        // test
+        sut.updatePomXmlDocument(document, context);
+        // verify
+        Element root = document.getRootElement();
+        Element groupId = root.element("groupId");
+        assertThat(groupId.getText()).isEqualTo(GROUP_ID);
+        Element artifactId = root.element("artifactId");
+        assertThat(artifactId.getText()).isEqualTo(ARTIFACT_ID);
+        Element version = root.element("version");
+        assertThat(version.getText()).isEqualTo(VERSION);
+        Node name = root.element("name");
+        assertThat(name.getText()).isEqualTo(ARTIFACT_ID);
+        Node description = root.element("description");
+        assertThat(description).isNull();
     }
 
     Document createPomXmlDocument() throws DocumentException, IOException {
